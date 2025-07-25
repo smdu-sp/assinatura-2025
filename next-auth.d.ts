@@ -11,6 +11,7 @@ declare module 'next-auth' {
             nome: string
             login: string
             permissao: Permissao
+            telefone?: string
         }
     }
 
@@ -19,6 +20,7 @@ declare module 'next-auth' {
         email: string
         nome: string
         login: string
+        telefone?: string
         permissao: Permissao
     }
 }

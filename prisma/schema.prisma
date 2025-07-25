@@ -27,6 +27,7 @@ model Usuario {
   login         String        @unique
   aniversario   String?
   cargo         String?
+  telefone      String?
   setorId       String?
   permissao     Permissao     @default(USR)
 

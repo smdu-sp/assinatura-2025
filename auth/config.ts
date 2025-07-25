@@ -35,6 +35,7 @@ export const authConfig = {
 					email: usuario.email,
 					nome: usuario.nome,
 					login: usuario.login,
+					telefone: usuario.telefone,
 					permissao: usuario.permissao,
 				};
 			},
@@ -49,6 +50,7 @@ export const authConfig = {
 				token.email = user.email;
 				token.nome = user.nome;
 				token.login = user.login;
+				token.telefone = user.telefone;
 				token.permissao = user.permissao;
 			}
 			return token;
@@ -60,6 +62,7 @@ export const authConfig = {
 			session.user.email = token.email;
 			session.user.nome = token.nome;
 			session.user.login = token.login;
+			session.user.telefone = token.telefone;
 			session.user.permissao = token.permissao;
 			return session;
 		},

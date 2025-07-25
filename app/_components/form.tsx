@@ -56,7 +56,7 @@ export function InputForm({
   const [cargo, setCargo] = useState('');
   const [unidade, setUnidade] = useState('');
   const [email, setEmail] = useState(session?.user?.email || '');
-  const [telefone, setTelefone] = useState('');
+  const [telefone, setTelefone] = useState(PhoneMask(session?.user?.telefone) || '');
   const [andar, setAndar] = useState('');
   const endereco = 'Rua São Bento, 405 | ${andar}º andar';
   const endereco2 = '01011 100 | São Paulo | SP';
@@ -99,10 +99,10 @@ export function InputForm({
     const email = form.get('email');
     const unidade = form.get('unidade');
     const cargo = form.get('cargo');
-    const tel = form.get('tel');
+    const telefone = form.get('tel');
     const nascimento = form.get('nascimento');
 
-    console.log({ nome, email, unidade, cargo, tel, nascimento });
+    console.log({ nome, email, unidade, cargo, telefone, nascimento });
   }
 
   return (

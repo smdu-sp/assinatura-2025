@@ -1,6 +1,7 @@
 
 import Image from 'next/image';
 import logo from '@/public/img_assinatura.png';
+import { color } from 'framer-motion';
 
 interface ViewAssinaturaProps {
   nome: string;
@@ -32,17 +33,18 @@ export function ViewAssinatura({
         alt="logo"
         width={200}
         height={200}
-        className="mr-4"
+        className="mr-0"
       />
-      <div className="border-l-4 h-60 mr-6"></div>
+      <div className="border-l-4 border-black h-50 mr-4"></div>
       <div>
-        <p className="font-bold">{nome}</p>
-        <p className="text-gray-600">{cargo} / {unidade}</p>
-        <p className="text-gray-600">{email}</p>
-        <p className="text-gray-600">{telefone}</p>
-        <p className="text-gray-600">{endereco.replace('${andar}', andar)}</p>
-        <p className="text-gray-600">{endereco2}</p>
-        <p className="text-blue-500">{site}</p>
+        <p className="font-bold text-black-800">{nome.toUpperCase()}</p>
+        <p className="text-black-600">{cargo.toUpperCase()} / {unidade}</p>
+        <br></br>
+        <p className="text-black-600">{email}</p>
+        <p className="text-black-600">{telefone}</p>
+        <p className="text-black-600">{endereco.replace('${andar}', andar)}</p>
+        <p className="text-black-600">{endereco2}</p>
+        <p className="text-black-500">{site}</p>
       </div>
     </div>
   );

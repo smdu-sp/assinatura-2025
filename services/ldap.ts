@@ -31,7 +31,7 @@ async function bind(login: string, senha: string) {
 
 async function buscarPorLogin(
 	login: string,
-): Promise<{ nome: string; email: string; login: string } | null> {
+): Promise<{ nome: string; email: string; login: string; telefone?: string } | null> {
 	if (!login || login === '') return null;
 	let resposta = null;
 	console.log({ login });
@@ -42,13 +42,13 @@ async function buscarPorLogin(
 		);
 		const usuario = await ldap.search(process.env.LDAP_BASE || '', {
 			filter: `(&(samaccountname=${login})(|(company=SMUL)(company=SPURBANISMO)))`,
-			attributes: ['name', 'mail'],
 			scope: 'sub',
 		});
-		const { name, mail } = usuario.searchEntries[0];
+		const { name, mail, telephoneNumber } = usuario.searchEntries[0];
 		const nome = name.toString();
 		const email = mail.toString().toLowerCase();
-		resposta = { nome, email, login };
+		const telefone = telephoneNumber.toString().replace('55', '').replace(/\D/g, '');
+		resposta = { nome, email, login, telefone };
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	} catch (err) {}
 	ldap.unbind();
@@ -57,7 +57,7 @@ async function buscarPorLogin(
 
 async function buscarPorNome(
 	nome: string,
-): Promise<{ nome: string; email: string; login: string } | null> {
+): Promise<{ nome: string; email: string; login: string; telefone?: string } | null> {
 	if (!nome || nome === '') return null;
 	let resposta = null;
 	nome = nome.toLowerCase();
@@ -68,15 +68,16 @@ async function buscarPorNome(
 		);
 		const usuario = await ldap.search(process.env.LDAP_BASE || '', {
 			filter: `(&(name=${nome})(|(company=SMUL)(company=SPURBANISMO)))`,
-			attributes: ['samaccountname', 'mail', 'name'],
+			attributes: ['samaccountname', 'mail', 'name', 'telephoneNumber'],
 			scope: 'sub',
 		});
 		if (usuario.searchEntries && usuario.searchEntries.length > 0) {
-			const { sAMAccountName, mail, name } = usuario.searchEntries[0];
+			const { sAMAccountName, mail, name, telephoneNumber } = usuario.searchEntries[0];
 			const login = sAMAccountName.toString();
 			const email = mail.toString().toLowerCase();
+			const telefone = telephoneNumber.toString();
 			nome = name.toString();
-			resposta = { nome, email, login };
+			resposta = { nome, email, login, telefone };
 		}
 	} catch (err) {
 		console.log(err);
@@ -88,7 +89,7 @@ async function buscarPorNome(
 async function buscarPorLoginOuNome(
 	login: string,
 	nome: string,
-): Promise<{ nome: string; email: string; login: string } | null> {
+): Promise<{ nome: string; email: string; login: string  } | null> {
 	let resposta = buscarPorLogin(login);
 	if (!resposta) resposta = buscarPorNome(nome);
 	return resposta;
