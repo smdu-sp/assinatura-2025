@@ -12,7 +12,7 @@ import { useRouter } from 'next/navigation';
 import { FormEvent } from 'react';
 import { toast } from 'sonner';
 
-import logo from '@/public/img_assinatura.png';
+import logo from '@/public/img_login.png';
 
 export function LoginForm({
 	className,
