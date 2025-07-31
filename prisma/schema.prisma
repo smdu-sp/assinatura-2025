@@ -30,6 +30,7 @@ model Usuario {
   telefone      String?
   setorId       String?
   permissao     Permissao     @default(USR)
+  andar         String?
 
   criadoEm      DateTime      @default(now())
   atualizadoEm  DateTime      @default(now()) @updatedAt

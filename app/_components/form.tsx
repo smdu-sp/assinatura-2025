@@ -13,7 +13,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { ViewAssinatura } from '@/components/view-assinatura';
 import { Session } from 'next-auth';
 import * as htmlToImage from 'html-to-image';
-import { CopyAssinatura } from '@/components/copy-assinatura'
+import { Copy, Download } from 'lucide-react';
+
 
 type CustomUser = {
   id: string;
@@ -78,7 +79,7 @@ export function InputForm({
   const endereco = `Rua São Bento, 405 | ${andar}º andar`;
   const endereco2 = '01011 100 | São Paulo | SP';
   const site = 'www.prefeitura.sp.gov.br';
-  const signatureRef = useRef<HTMLDivElement>(null);
+  const displaySignatureRef = useRef<HTMLDivElement>(null);
   const copySignatureRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -111,27 +112,27 @@ export function InputForm({
   }, [session]);
 
   const generateSignatureImage = async (): Promise<string | null> => {
-    if (signatureRef.current === null) {
+    if (displaySignatureRef.current === null) {
       toast.error('Erro ao gerar imagem da assinatura: Elemento não encontrado.');
       return null;
     }
 
     try {
-      const dataUrl = await htmlToImage.toPng(signatureRef.current);
+      await new Promise(resolve => setTimeout(resolve, 50)); 
+      const dataUrl = await htmlToImage.toPng(displaySignatureRef.current);
       return dataUrl;
     } catch (error) {
-      console.error("Erro ao gerar imagem da assinatura:", error);
       toast.error('Erro ao gerar imagem da assinatura.');
       return null;
     }
   };
 
   const saveDataToDatabase = async (
-    nome: string,
     unidade: string,
     cargo: string,
     telefone: string,
-    aniversario: string
+    aniversario: string,
+    andar: string
   ) => {
     try {
       if (!session?.user?.email) {
@@ -146,18 +147,18 @@ export function InputForm({
         },
         body: JSON.stringify({
           email: session.user.email, 
-          nome, 
           unidade,
           cargo,
           telefone,
           aniversario,
+          andar
         }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        toast.success('Dados salvos com sucesso!');
+        console.log('Dados salvos com sucesso');
 
       } else {
         console.error('Erro ao salvar dados:', data.error);
@@ -180,7 +181,7 @@ export function InputForm({
       return;
     }
 
-    await saveDataToDatabase(nome, unidade, cargo, telefone, nascimento);
+    await saveDataToDatabase(unidade, cargo, telefone, nascimento, andar);
         
       if (actionType === 'download') {
         const signatureDataUrl = await generateSignatureImage();
@@ -204,7 +205,6 @@ export function InputForm({
     const divToCopy = copySignatureRef.current;
 
     if (!divToCopy) {
-      console.error('Falha ao copiar: Elemento da assinatura de cópia não encontrado.');
       toast.error('Não foi possível copiar a assinatura. Tente novamente.');
       return;
     }
@@ -245,7 +245,7 @@ export function InputForm({
         <ViewAssinatura
           nome={nome}
           cargo={cargo}
-          // unidade={setores.find((setor) => setor.id === unidade)?.nome || ''}
+          unidade={setores.find((setor) => setor.id === unidade)?.nome || ''}
           secretaria={secretaria}
           email={email}
           telefone={telefone}
@@ -253,21 +253,23 @@ export function InputForm({
           endereco2={endereco2}
           andar={andar}
           site={site}
-          ref={signatureRef}
+          mode='display'
+          ref={displaySignatureRef}
         />
 
-        <CopyAssinatura
-        nome={nome}
-        cargo={cargo}
-        unidade={setores.find((setor) => setor.id === unidade)?.nome || ''} // Passe o nome da unidade para o copy, se necessário
-        secretaria={secretaria}
-        email={email}
-        telefone={telefone}
-        endereco={endereco}
-        endereco2={endereco2}
-        andar={andar}
-        site={site}
-        ref={copySignatureRef}
+        <ViewAssinatura
+          nome={nome}
+          cargo={cargo}
+          unidade={setores.find((setor) => setor.id === unidade)?.nome || ''}
+          secretaria={secretaria}
+          email={email}
+          telefone={telefone}
+          endereco={endereco}
+          endereco2={endereco2}
+          andar={andar}
+          site={site}
+          mode='copy'
+          ref={copySignatureRef}
         />
 
         <form
@@ -372,20 +374,20 @@ export function InputForm({
                 onChange={(e) => setNascimento(e.target.value)} 
               />
             </div>
-            <div className='grid h-full col-span-6'>
+            <div className='grid col-span-6 md:col-span-3 mt-4'>
               <Button
                 type='submit'
-                name='download'
-                className='w-full'>
-                Atualizar Cadastro e Baixar Assinatura
+                name='download'>
+                <Download className='mr-2 h-4 w-4' />
+                Baixar Assinatura
               </Button>
             </div>
-            <div className='grid h-full col-span-6'>
+            <div className='grid col-span-6 md:col-span-3 mt-4'>
               <Button
                 type='submit'
-                name='copy'
-                className='w-full'>
-                Atualizar Cadastro e Copiar Assinatura
+                name='copy'>
+                <Copy className='mr-2 h-4 w-4' />
+                Copiar Assinatura
               </Button>
             </div>
           </div>
