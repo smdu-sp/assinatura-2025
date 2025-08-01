@@ -1,46 +1,80 @@
-// components/day-month-picker.tsx
+// components/date-picker.tsx
 "use client"
 
 import * as React from "react"
-import { format, parseISO } from "date-fns"
+import { format, getDay, getDaysInMonth, isSameDay, setMonth, setDate, startOfMonth } from "date-fns"
 import { ptBR } from "date-fns/locale"
-import { Calendar as CalendarIcon } from "lucide-react"
+import { Calendar as CalendarIcon, ChevronLeft, ChevronRight } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { Calendar } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import "./calendar-noyear.css"
 
 interface DatePickerProps {
-  value?: Date;
-  onChange: (date: Date | undefined) => void;
+  value?: string;
+  onChange: (dateString: string | undefined) => void;
   disabled?: boolean;
 }
 
 export function DatePicker({ value, onChange, disabled }: DatePickerProps) {
-    const initialDate = value || new Date();
-    const [date, setDate] = React.useState<Date | undefined>(value);
+  const [open, setOpen] = React.useState(false);
+  const baseYear = 2000;
 
-  // Quando a data muda, chama a função onChange com a nova data
-  const handleDateChange = (newDate: Date | undefined) => {
-    setDate(newDate);
-    onChange(newDate);
-  }
+  // Use a data de hoje como valor padrão para evitar inicializações com 'Invalid Date'
+  const today = new Date();
+  const initialDate = value ? new Date(`${baseYear}-${value}`) : today;
 
-  // Formata a data para exibir "dia de mês" (ex: 01 de julho)
-  const formattedDate = date 
-    ? format(date, "dd 'de' MMMM", { locale: ptBR })
+  const [displayDate, setDisplayDate] = React.useState(initialDate);
+  const [selectedDate, setSelectedDate] = React.useState<Date | undefined>(value ? initialDate : undefined);
+
+  const weekDays = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+
+  const generateDays = () => {
+    const days = [];
+    const daysInMonth = getDaysInMonth(displayDate);
+    const firstDayOfMonth = startOfMonth(displayDate);
+    const startingDayOfWeek = getDay(firstDayOfMonth);
+
+    for (let i = 0; i < startingDayOfWeek; i++) {
+      days.push(<div key={`empty-${i}`} className="h-8 w-8" />);
+    }
+
+    for (let i = 1; i <= daysInMonth; i++) {
+      const day = setDate(displayDate, i);
+      const isSelected = selectedDate ? isSameDay(day, selectedDate) : false;
+
+      days.push(
+        <Button
+          key={i}
+          variant={isSelected ? 'default' : 'ghost'}
+          className="h-8 w-8 p-0 text-sm rounded-full"
+          onClick={() => {
+            setSelectedDate(day);
+            // CORREÇÃO: Garante que o valor enviado é APENAS 'MM-dd'
+            onChange(format(day, 'dd-MM'));
+            setOpen(false);
+          }}
+        >
+          {i}
+        </Button>
+      );
+    }
+
+    return days;
+  };
+
+  const formattedDate = selectedDate
+    ? format(selectedDate, "dd 'de' MMMM", { locale: ptBR })
     : "Selecione";
 
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
           variant={"outline"}
           className={cn(
-            "w-full justify-start text-left font-normal bg-white text-gray-900 hover:bg-white hover:text-gray-900",
-            !date && "text-muted-foreground"
+            "w-full justify-start text-left font-normal bg-background hover:bg-background hover:text-gray-700 border-gray-200",
+            !value && "text-gray-700"
           )}
           disabled={disabled}
         >
@@ -48,18 +82,35 @@ export function DatePicker({ value, onChange, disabled }: DatePickerProps) {
           {formattedDate}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0">
-        <Calendar
-          mode="single"
-          selected={date}
-          onSelect={handleDateChange}
-          initialFocus
-          locale={ptBR}
-          captionLayout="dropdown"
-          fromYear={1900}
-          toYear={2100}
-        />
+      <PopoverContent className="w-auto p-3">
+        <div className="flex justify-between items-center mb-2 bg-white">
+          <Button
+            variant="ghost"
+            className="h-8 w-8 p-0"
+            onClick={() => setDisplayDate(setMonth(displayDate, displayDate.getMonth() - 1))}
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </Button>
+          <span className="text-sm font-medium capitalize">
+            {format(displayDate, 'MMMM', { locale: ptBR })}
+          </span>
+          <Button
+            variant="ghost"
+            className="h-8 w-8 p-0"
+            onClick={() => setDisplayDate(setMonth(displayDate, displayDate.getMonth() + 1))}
+          >
+            <ChevronRight className="h-4 w-4" />
+          </Button>
+        </div>
+        <div className="grid grid-cols-7 text-xs text-center text-muted-foreground">
+          {weekDays.map(day => (
+            <div key={day}>{day}</div>
+          ))}
+        </div>
+        <div className="grid grid-cols-7 gap-1 mt-2">
+          {generateDays()}
+        </div>
       </PopoverContent>
     </Popover>
-  )
+  );
 }
