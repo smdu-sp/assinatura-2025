@@ -14,6 +14,9 @@ import { ViewAssinatura } from '@/components/view-assinatura';
 import { Session } from 'next-auth';
 import * as htmlToImage from 'html-to-image';
 import { Copy, Download } from 'lucide-react';
+import { DatePicker } from '@/components/date-picker';
+import { format } from "date-fns";
+
 
 
 type CustomUser = {
@@ -75,7 +78,7 @@ export function InputForm({
   const [email, setEmail] = useState(session?.user?.email || '');
   const [telefone, setTelefone] = useState(PhoneMask(session?.user?.telefone) || '');
   const [andar, setAndar] = useState(session?.user?.andar || '');
-  const [nascimento, setNascimento] = useState(session?.user?.aniversario?.split('T')[0] || ''); 
+  const [nascimento, setNascimento] = useState<Date | undefined>(undefined); 
   const endereco = `Rua São Bento, 405 | ${andar}º andar`;
   const endereco2 = '01011 100 | São Paulo | SP';
   const site = 'www.prefeitura.sp.gov.br';
@@ -107,7 +110,7 @@ export function InputForm({
       setCargo(session.user.cargo || '');
       setUnidade(session.user.unidade || '');
       setAndar(session.user.andar || '');
-      setNascimento(session.user.aniversario ? session.user.aniversario.split('T')[0] : '');
+      setNascimento(session.user.aniversario ? new Date(session.user.aniversario.split('T')[0]) : undefined);
     }
   }, [session]);
 
@@ -131,7 +134,7 @@ export function InputForm({
     unidade: string,
     cargo: string,
     telefone: string,
-    aniversario: string,
+    aniversario: Date | undefined,
     andar: string
   ) => {
     try {
@@ -140,6 +143,7 @@ export function InputForm({
         return; 
       }
 
+      const formattedAniversario = aniversario ? format(aniversario, 'yyyy-MM-dd') : '';
       const response = await fetch('/api/usuarios/proprio', {
         method: 'PUT',
         headers: {
@@ -150,7 +154,7 @@ export function InputForm({
           unidade,
           cargo,
           telefone,
-          aniversario,
+          aniversario: formattedAniversario,
           andar
         }),
       });
@@ -363,15 +367,10 @@ export function InputForm({
               />
             </div>
             <div className='grid col-span-6 md:col-span-2 gap-2'>
-              <Label htmlFor='nascimento'>Data de nascimento</Label>
-              <Input
-                className='bg-background'
-                id='nascimento'
-                placeholder='DD/MM/AAAA'
-                type='date'
-                name='nascimento'
-                value={nascimento}
-                onChange={(e) => setNascimento(e.target.value)} 
+              <Label htmlFor='nascimento'>Aniversário</Label>
+              <DatePicker 
+                value={nascimento} 
+                onChange={setNascimento} 
               />
             </div>
             <div className='grid col-span-6 md:col-span-3 mt-4'>
