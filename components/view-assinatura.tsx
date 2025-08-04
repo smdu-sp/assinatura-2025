@@ -23,7 +23,6 @@ export const ViewAssinatura = forwardRef<HTMLDivElement, AssinaturaProps>(
     {
       nome,
       cargo,
-      unidade,
       secretaria,
       email,
       telefone,

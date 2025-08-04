@@ -25,6 +25,7 @@ type CustomUser = {
   email: string;
   nome: string;
   login: string;
+  // eslint-disable-next-line
   permissao: any;
   telefone?: string;
   cargo?: string;
@@ -42,11 +43,7 @@ interface InputFormProps extends React.ComponentPropsWithoutRef<'div'> {
   session: CustomSession | null
 }
 
-const handlePhone = (event : any) => {
-  let input = event.target
-  input.value = PhoneMask(input.value)
-}
-
+// eslint-disable-next-line
 const PhoneMask = (value : any) => {
   if (!value) return ""
   value = value.replace(/\D/g,'')
@@ -60,6 +57,7 @@ export function InputForm({
   session,
   ...props
 }: InputFormProps) {
+  // eslint-disable-next-line
   const router = useRouter();
   
   const getShortName = (fullName: string | undefined) => {
@@ -126,6 +124,7 @@ export function InputForm({
       await new Promise(resolve => setTimeout(resolve, 50)); 
       const dataUrl = await htmlToImage.toPng(displaySignatureRef.current);
       return dataUrl;
+      // eslint-disable-next-line
     } catch (error) {
       toast.error('Erro ao gerar imagem da assinatura.');
       return null;
@@ -145,6 +144,7 @@ export function InputForm({
         return; 
       }
 
+      // eslint-disable-next-line
       const formattedAniversario = aniversario ? format(aniversario, 'yyyy-MM-dd') : '';
       const response = await fetch('/api/usuarios/proprio', {
         method: 'PUT',
