@@ -10,7 +10,6 @@ interface AssinaturaProps {
   unidade: string;
   secretaria: string;
   email: string;
-  telefone: string;
   endereco: string;
   andar: string;
   endereco2: string;
@@ -26,7 +25,6 @@ export const ViewAssinatura = forwardRef<HTMLDivElement, AssinaturaProps>(
       cargo,
       secretaria,
       email,
-      telefone,
       endereco,
       andar,
       endereco2,
@@ -174,9 +172,7 @@ export const ViewAssinatura = forwardRef<HTMLDivElement, AssinaturaProps>(
                           <p style={copyModeCommonTextStyle}>
                             {endereco.replace("${andar}", andar)}
                           </p>
-                          <p style={copyModeCommonTextStyle}>
-                            {telefone} | {ramal}
-                          </p>
+                          <p style={copyModeCommonTextStyle}>{ramal}</p>
                           <p style={copyModeCommonTextStyle}>{endereco2}</p>
                         </td>
                       </tr>
@@ -232,9 +228,7 @@ export const ViewAssinatura = forwardRef<HTMLDivElement, AssinaturaProps>(
             <p className="font-sans text-[12px]">
               {endereco.replace("${andar}", andar)}
             </p>
-            <p className="font-sans text-[12px]">
-              {telefone} | {ramal}
-            </p>
+            <p className="font-sans text-[12px]">{ramal}</p>
             <p className="font-sans text-[12px]">{endereco2}</p>
           </div>
           <div>

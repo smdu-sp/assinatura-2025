@@ -31,7 +31,6 @@ type CustomUser = {
   login: string;
   // eslint-disable-next-line
   permissao: any;
-  telefone?: string;
   cargo?: string;
   unidade?: string;
   andar?: string;
@@ -76,9 +75,6 @@ export function InputForm({ className, session, ...props }: InputFormProps) {
   const [unidade, setUnidade] = useState(session?.user?.unidade || "");
   const secretaria = "URBANISMO E LICENCIAMENTO";
   const [email, setEmail] = useState(session?.user?.email || "");
-  const [telefone, setTelefone] = useState(
-    PhoneMask(session?.user?.telefone) || ""
-  );
   const [andar, setAndar] = useState(session?.user?.andar || "");
   const [nascimento, setNascimento] = React.useState<string>(
     session?.user?.aniversario || ""
@@ -110,7 +106,6 @@ export function InputForm({ className, session, ...props }: InputFormProps) {
         if (usuarioData) {
           setNome(getShortName(usuarioData.nome));
           setEmail(usuarioData.email || "");
-          setTelefone(PhoneMask(usuarioData.telefone) || "");
           setCargo(usuarioData.cargo || "");
           setUnidade(usuarioData.setorId || "");
           setAndar(usuarioData.andar || "");
@@ -150,7 +145,6 @@ export function InputForm({ className, session, ...props }: InputFormProps) {
   const saveDataToDatabase = async (
     unidade: string,
     cargo: string,
-    telefone: string,
     aniversario: string,
     andar: string,
     ramal: string
@@ -174,7 +168,6 @@ export function InputForm({ className, session, ...props }: InputFormProps) {
           email: session.user.email,
           unidade,
           cargo,
-          telefone,
           aniversario: aniversario,
           andar,
           ramal,
@@ -204,27 +197,12 @@ export function InputForm({ className, session, ...props }: InputFormProps) {
       .submitter as HTMLButtonElement | null;
     const actionType = submitter?.name;
 
-    if (
-      !nome ||
-      !email ||
-      !cargo ||
-      !unidade ||
-      !telefone ||
-      !andar ||
-      !ramal
-    ) {
+    if (!nome || !email || !cargo || !unidade || !andar || !ramal) {
       toast.error("Por favor, preencha todos os campos obrigatórios.");
       return;
     }
 
-    await saveDataToDatabase(
-      unidade,
-      cargo,
-      telefone,
-      nascimento,
-      andar,
-      ramal
-    );
+    await saveDataToDatabase(unidade, cargo, nascimento, andar, ramal);
 
     if (actionType === "download") {
       const signatureDataUrl = await generateSignatureImage();
@@ -294,7 +272,6 @@ export function InputForm({ className, session, ...props }: InputFormProps) {
           unidade={setores.find((setor) => setor.id === unidade)?.nome || ""}
           secretaria={secretaria}
           email={email}
-          telefone={telefone}
           endereco={endereco}
           endereco2={endereco2}
           andar={andar}
@@ -310,7 +287,6 @@ export function InputForm({ className, session, ...props }: InputFormProps) {
           unidade={setores.find((setor) => setor.id === unidade)?.nome || ""}
           secretaria={secretaria}
           email={email}
-          telefone={telefone}
           endereco={endereco}
           endereco2={endereco2}
           andar={andar}
@@ -386,18 +362,6 @@ export function InputForm({ className, session, ...props }: InputFormProps) {
               />
             </div>
             <div className="grid col-span-6 md:col-span-2 gap-2">
-              <Label htmlFor="cargo">Ramal de Grupo *</Label>
-              <Input
-                className="bg-background"
-                id="ramal"
-                placeholder="(11) 99999-9999"
-                type="text"
-                name="ramal"
-                value={ramal}
-                onChange={(e) => setRamal(PhoneMask(e.target.value))}
-              />
-            </div>
-            <div className="grid col-span-6 md:col-span-2 gap-2">
               <Label htmlFor="andar">Andar *</Label>
               <Select
                 required
@@ -419,21 +383,19 @@ export function InputForm({ className, session, ...props }: InputFormProps) {
                 </SelectContent>
               </Select>
             </div>
-            <div className="grid col-span-6 md:col-span-2 gap-2">
-              <Label htmlFor="tel">Telefone *</Label>
+            <div className="grid col-span-6 md:col-span-3 gap-2">
+              <Label htmlFor="cargo">Ramal de Grupo *</Label>
               <Input
                 className="bg-background"
-                id="tel"
+                id="ramal"
                 placeholder="(11) 99999-9999"
-                type="tel"
-                name="tel"
-                maxLength={15}
-                required
-                value={telefone}
-                onChange={(e) => setTelefone(PhoneMask(e.target.value))}
+                type="text"
+                name="ramal"
+                value={ramal}
+                onChange={(e) => setRamal(PhoneMask(e.target.value))}
               />
             </div>
-            <div className="grid col-span-6 md:col-span-2 gap-2">
+            <div className="grid col-span-6 md:col-span-3 gap-2">
               <Label htmlFor="nascimento">Aniversário</Label>
               <DatePicker
                 value={nascimento}
