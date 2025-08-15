@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import { db } from "@/lib/prisma";
 import { auth } from "@/auth";
 
 export async function PUT(req: Request) {
@@ -15,16 +15,6 @@ export async function PUT(req: Request) {
   try {
     const { nome, unidade, cargo, telefone, aniversario, andar, ramal } =
       await req.json();
-
-    console.log("Dados recebidos no backend:", {
-      nome,
-      unidade,
-      cargo,
-      telefone,
-      aniversario,
-      andar,
-      ramal,
-    });
 
     if (!unidade) {
       return NextResponse.json(
@@ -51,14 +41,14 @@ export async function PUT(req: Request) {
       );
     }
 
-    if (!prisma) {
+    if (!db) {
       return NextResponse.json(
         { error: "Erro interno do servidor: Cliente Prisma não inicializado." },
         { status: 500 }
       );
     }
 
-    const setorExistente = await prisma.setor.findUnique({
+    const setorExistente = await db.setor.findUnique({
       where: { id: unidade },
     });
 
@@ -95,7 +85,7 @@ export async function PUT(req: Request) {
       updateData.ramal = ramal;
     }
 
-    const updateUser = await prisma.usuario.update({
+    const updateUser = await db.usuario.update({
       where: { id: session.user.id },
       data: updateData,
     });

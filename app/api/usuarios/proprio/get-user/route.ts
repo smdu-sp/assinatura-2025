@@ -1,13 +1,13 @@
 // /api/usuarios/proprio/get-user/route.ts
 
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import { db } from "@/lib/prisma";
 import { auth } from "@/auth";
 
 export async function GET() {
   const session = await auth();
 
-  if (!session?.user?.id || !prisma) {
+  if (!session?.user?.id || !db) {
     return NextResponse.json(
       { error: "Usuário não autenticado." },
       { status: 401 }
@@ -15,7 +15,7 @@ export async function GET() {
   }
 
   try {
-    const usuario = await prisma.usuario.findUnique({
+    const usuario = await db.usuario.findUnique({
       where: { id: session.user.id },
       select: {
         id: true,
@@ -39,7 +39,7 @@ export async function GET() {
       );
     }
 
-    const ramalDeGrupo = await prisma.grupoRamal.findUnique({
+    const ramalDeGrupo = await db.grupoRamal.findUnique({
       where: { usuario: usuario.login },
       select: {
         ramalGrupo: true,

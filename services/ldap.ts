@@ -12,7 +12,6 @@ async function bind(login: string, senha: string) {
 	let usuario = await db.usuario.findUnique({ where: { login } });
 	if (!usuario) {
 		const buscaUsuario = await buscarPorLogin(login);
-		console.log(buscaUsuario);
 		if (!buscaUsuario) return null;
 		const novoUsuario = await db.usuario.create({ data: buscaUsuario });
 		if (!novoUsuario) return null;
@@ -34,7 +33,6 @@ async function buscarPorLogin(
 ): Promise<{ nome: string; email: string; login: string; telefone?: string } | null> {
 	if (!login || login === '') return null;
 	let resposta = null;
-	console.log({ login });
 	try {
 		await ldap.bind(
 			`${process.env.LDAP_USER}${process.env.LDAP_DOMAIN}`,

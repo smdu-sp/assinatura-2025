@@ -121,7 +121,6 @@ export function InputForm({ className, session, ...props }: InputFormProps) {
     loadInitialData();
   }, [session]);
 
-  console.log("RAMAL AQUI:", ramal);
 
   const generateSignatureImage = async (): Promise<string | null> => {
     if (displaySignatureRef.current === null) {
@@ -177,11 +176,11 @@ export function InputForm({ className, session, ...props }: InputFormProps) {
       const data = await response.json();
 
       if (response.ok) {
-        console.log("Dados salvos com sucesso");
+        toast.success("Dados salvos com sucesso");
       } else {
         console.error("Erro ao salvar dados:", data.error);
         toast.error(
-          `Erro ao salvar dados: ${data.error || "Erro desconhecido"}`
+          `Erro ao salvar dados`
         );
       }
     } catch (error) {

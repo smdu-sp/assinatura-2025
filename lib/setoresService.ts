@@ -1,16 +1,11 @@
-// src/lib/setoresService.ts
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { db } from "@/lib/prisma";
 
 export async function getSetores() {
   try {
-    const setores = await prisma.setor.findMany();
+    const setores = await db.setor.findMany();
     return setores;
   } catch (error) {
     console.error("Erro ao buscar setores:", error);
     return [];
-  } finally {
-    await prisma.$disconnect();
   }
 }

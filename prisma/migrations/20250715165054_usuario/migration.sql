@@ -1,4 +1,0 @@
--- AlterTable
-ALTER TABLE "usuarios" ALTER COLUMN "aniversario" DROP NOT NULL,
-ALTER COLUMN "cargo" DROP NOT NULL,
-ALTER COLUMN "permissao" SET DEFAULT 'USR';
