@@ -4,7 +4,6 @@ import { auth } from "@/auth";
 
 export async function PUT(req: Request) {
   const session = await auth();
-
   if (!session?.user?.id) {
     return NextResponse.json(
       { error: "Usuário não autenticado." },
@@ -13,7 +12,7 @@ export async function PUT(req: Request) {
   }
 
   try {
-    const { nome, unidade, cargo, telefone, aniversario, andar, ramal } =
+    const { unidade, cargo, telefone, aniversario, andar, ramal } =
       await req.json();
 
     if (!unidade) {

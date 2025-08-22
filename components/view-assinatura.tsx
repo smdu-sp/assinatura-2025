@@ -2,7 +2,6 @@
 
 import React, { forwardRef } from "react";
 import Image from "next/image";
-import logo from "@/public/img_assinatura.png";
 
 interface AssinaturaProps {
   nome: string;
@@ -34,10 +33,6 @@ export const ViewAssinatura = forwardRef<HTMLDivElement, AssinaturaProps>(
     },
     ref
   ) => {
-    const localImageUrl =
-      typeof logo === "object" && "src" in logo ? logo.src : "";
-    const finalImageUrlForCopy = localImageUrl;
-
     const copyModeContainerStyle: React.CSSProperties = {
       width: "500px",
       padding: "20px",
@@ -110,15 +105,13 @@ export const ViewAssinatura = forwardRef<HTMLDivElement, AssinaturaProps>(
                     width: "200px",
                   }}
                 >
-                  {finalImageUrlForCopy && (
-                    <img
-                      src={finalImageUrlForCopy}
-                      alt="logo"
-                      width="200"
-                      height="auto"
-                      style={{ display: "block" }}
-                    />
-                  )}
+                  <img
+                    src="/img_assinatura.png"
+                    alt="logo"
+                    width="200"
+                    height="auto"
+                    style={{ display: "block" }}
+                  />
                 </td>
                 <td style={copyModeSeparatorColumnStyle}>
                   <div style={copyModeSeparatorDivStyle}>&nbsp;</div>
@@ -202,7 +195,7 @@ export const ViewAssinatura = forwardRef<HTMLDivElement, AssinaturaProps>(
         className="flex items-center border p-4 rounded-md bg-white"
       >
         <Image
-          src={logo.src}
+          src="/img_assinatura.png"
           alt="logo"
           width={200}
           height={200}

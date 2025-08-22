@@ -6,7 +6,6 @@ import { auth } from "@/auth";
 
 export async function GET() {
   const session = await auth();
-
   if (!session?.user?.id || !db) {
     return NextResponse.json(
       { error: "Usuário não autenticado." },

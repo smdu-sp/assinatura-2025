@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import { InputForm } from "./_components/form";
+import { InputForm } from "../_components/form";
 
 /** @format */
 export default async function Home() {

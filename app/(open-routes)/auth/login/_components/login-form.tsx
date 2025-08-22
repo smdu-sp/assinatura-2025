@@ -12,8 +12,6 @@ import { useRouter } from 'next/navigation';
 import { FormEvent } from 'react';
 import { toast } from 'sonner';
 
-import logo from '@/public/img_login.png';
-
 export function LoginForm({
 	className,
 	...props
@@ -47,7 +45,7 @@ export function LoginForm({
 			{...props}>
 			<div className='-translate-y-14'>
 				<Image
-					src={logo.src}
+					src="/img_login.png"
 					alt='SPUrbanismo'
 					width={602}
 					height={200}
