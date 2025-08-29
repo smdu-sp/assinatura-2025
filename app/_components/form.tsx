@@ -175,9 +175,7 @@ export function InputForm({ className, session, ...props }: InputFormProps) {
 
       const data = await response.json();
 
-      if (response.ok) {
-        toast.success("Dados salvos com sucesso");
-      } else {
+      if (!response.ok) {
         console.error("Erro ao salvar dados:", data.error);
         toast.error(
           `Erro ao salvar dados`

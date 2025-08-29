@@ -211,7 +211,7 @@ export const ViewAssinatura = forwardRef<HTMLDivElement, AssinaturaProps>(
             </p>
           </div>
           <div>
-            <a href={`mailto:${email}`} className="font-sans text-[12px]">{email}</a>
+            <a href={`mailto:${email}`} target="_blank" className="font-sans text-[12px]">{email}</a>
           </div>
           <div>
             <p className="font-sans text-[12px]">
@@ -221,7 +221,7 @@ export const ViewAssinatura = forwardRef<HTMLDivElement, AssinaturaProps>(
             <p className="font-sans text-[12px]">{endereco2}</p>
           </div>
           <div>
-            <a href={site} className="font-sans text-[12px]">{site}</a>
+            <a href={site} target="_blank" className="font-sans text-[12px]">{site}</a>
           </div>
         </div>
       </div>
