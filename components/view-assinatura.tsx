@@ -2,6 +2,7 @@
 
 import React, { forwardRef } from "react";
 import Image from "next/image";
+import Logo from "./logo";
 
 interface AssinaturaProps {
   nome: string;
@@ -95,6 +96,7 @@ export const ViewAssinatura = forwardRef<HTMLDivElement, AssinaturaProps>(
             cellSpacing="0"
             border={0}
             style={{ width: "100%" }}
+            className="border-0 border-none"
           >
             <tbody>
               <tr>
@@ -105,20 +107,7 @@ export const ViewAssinatura = forwardRef<HTMLDivElement, AssinaturaProps>(
                     width: "200px",
                   }}
                 >
-                  {/* <img
-                    src="/img_assinatura.png"
-                    alt="logo"
-                    width="200"
-                    height="auto"
-                    style={{ display: "block" }}
-                  /> */}
-                  <Image
-                    src="/img_assinatura.png"
-                    alt="logo"
-                    width={200}
-                    height={200}
-                    style={{ display: "block" }}
-                  />
+                  <Logo />
                 </td>
                 <td style={copyModeSeparatorColumnStyle}>
                   <div style={copyModeSeparatorDivStyle}>&nbsp;</div>
