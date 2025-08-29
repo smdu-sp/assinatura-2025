@@ -21,7 +21,6 @@ import { Session } from "next-auth";
 import * as htmlToImage from "html-to-image";
 import { Copy, Download } from "lucide-react";
 import { DatePicker } from "@/components/date-picker";
-import { format } from "date-fns";
 import React from "react";
 
 type CustomUser = {
