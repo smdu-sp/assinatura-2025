@@ -211,17 +211,13 @@ export const ViewAssinatura = forwardRef<HTMLDivElement, AssinaturaProps>(
             </p>
           </div>
           <div>
-            <p className="font-sans text-[12px]">
-              <a href={`mailto:${email}`}>{email}</a>
-            </p>
+            <a href={`mailto:${email}`} className="font-sans text-[12px]">{email}</a>
           </div>
           <div>
             <p className="font-sans text-[12px]">
               {endereco.replace("${andar}", andar)}
             </p>
-            <p className="font-sans text-[12px]">
-              <a href={`tel:${ramal}`}>{ramal}</a>
-            </p>
+            <a href={`tel:${ramal}`} className="font-sans text-[12px]">{ramal}</a>
             <p className="font-sans text-[12px]">{endereco2}</p>
           </div>
           <div>
