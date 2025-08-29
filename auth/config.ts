@@ -1,7 +1,6 @@
 /** @format */
 
 import Credentials from 'next-auth/providers/credentials';
-// import { bind } from '../services/ldap';
 
 export const authConfig = {
 	providers: [

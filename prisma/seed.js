@@ -1,4 +1,4 @@
-import { PrismaClient } from ".prisma/client";
+import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
@@ -762,7 +762,23 @@ async function main() {
     skipDuplicates: true,
   });
 
-  console.log(`Seeded ${criarRamais.length} users.`);
+  await prisma.usuario.upsert({
+    where: {
+      login: "d927014",
+    },
+    update: {
+      ramal: "1154661740",
+      nome: "Victor Alexander Menezes de Abreu",
+      email: "vmabreu@prefeitura.sp.gov.br",
+      login: "d927014",
+    },
+    create: {
+      ramal: "1154661740",
+      nome: "Victor Alexander Menezes de Abreu",
+      email: "vmabreu@prefeitura.sp.gov.br",
+      login: "d927014",
+    }
+  })
 }
 
 main()

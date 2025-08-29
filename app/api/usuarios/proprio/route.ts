@@ -12,7 +12,7 @@ export async function PUT(req: Request) {
   }
 
   try {
-    const { unidade, cargo, telefone, aniversario, andar, ramal } =
+    const { unidade, cargo, aniversario, andar, ramal } =
       await req.json();
 
     if (!unidade) {
@@ -24,12 +24,6 @@ export async function PUT(req: Request) {
     if (!cargo) {
       return NextResponse.json(
         { error: "Cargo é obrigatório." },
-        { status: 400 }
-      );
-    }
-    if (!telefone) {
-      return NextResponse.json(
-        { error: "Telefone é obrigatório." },
         { status: 400 }
       );
     }
@@ -60,14 +54,12 @@ export async function PUT(req: Request) {
 
     const updateData: {
       cargo: string;
-      telefone: string;
       andar: string;
       setor: { connect: { id: string } };
       aniversario?: string;
       ramal?: string;
     } = {
       cargo: cargo,
-      telefone: telefone,
       andar: andar,
       setor: {
         connect: {
