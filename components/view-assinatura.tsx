@@ -105,11 +105,18 @@ export const ViewAssinatura = forwardRef<HTMLDivElement, AssinaturaProps>(
                     width: "200px",
                   }}
                 >
-                  <img
+                  {/* <img
                     src="/img_assinatura.png"
                     alt="logo"
                     width="200"
                     height="auto"
+                    style={{ display: "block" }}
+                  /> */}
+                  <Image
+                    src="/img_assinatura.png"
+                    alt="logo"
+                    width={200}
+                    height={200}
                     style={{ display: "block" }}
                   />
                 </td>
