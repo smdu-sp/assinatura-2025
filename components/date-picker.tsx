@@ -18,16 +18,16 @@ interface DatePickerProps {
 
 export function DatePicker({ value, onChange, disabled }: DatePickerProps) {
   const [open, setOpen] = React.useState(false);
-  const baseYear = 2000;
+  const baseYear = 2024;
 
   // Use a data de hoje como valor padrão para evitar inicializações com 'Invalid Date'
-  const today = new Date();
+  const today = new Date("01-01-2024");
   const initialDate = value ? new Date(`${baseYear}-${value}`) : today;
 
   const [displayDate, setDisplayDate] = React.useState(initialDate);
   const [selectedDate, setSelectedDate] = React.useState<Date | undefined>(value ? initialDate : undefined);
 
-  const weekDays = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+  // const weekDays = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
 
   const generateDays = () => {
     const days = [];
@@ -102,11 +102,11 @@ export function DatePicker({ value, onChange, disabled }: DatePickerProps) {
             <ChevronRight className="h-4 w-4" />
           </Button>
         </div>
-        <div className="grid grid-cols-7 text-xs text-center text-muted-foreground">
+        {/* <div className="grid grid-cols-7 text-xs text-center text-muted-foreground">
           {weekDays.map(day => (
             <div key={day}>{day}</div>
           ))}
-        </div>
+        </div> */}
         <div className="grid grid-cols-7 gap-1 mt-2">
           {generateDays()}
         </div>

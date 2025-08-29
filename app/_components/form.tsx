@@ -153,11 +153,7 @@ export function InputForm({ className, session, ...props }: InputFormProps) {
         toast.error("Usuário não autenticado.");
         return;
       }
-
-      // eslint-disable-next-line
-      const formattedAniversario = aniversario
-        ? format(aniversario, "yyyy-MM-dd")
-        : "";
+      
       const response = await fetch("/api/usuarios/proprio", {
         method: "PUT",
         headers: {
