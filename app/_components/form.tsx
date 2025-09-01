@@ -339,6 +339,7 @@ export function InputForm({ className, session, ...props }: InputFormProps) {
                 <SelectContent 
                   side="bottom" 
                   className="max-w-[500px]"
+                  avoidCollisions={false}
                 >
                   {setores.map((setor) => (
                     <SelectItem key={setor.id} value={setor.id}>
@@ -362,6 +363,7 @@ export function InputForm({ className, session, ...props }: InputFormProps) {
                 <SelectContent 
                   side="bottom"
                   className="max-w-[500px]"
+                  avoidCollisions={false}
                 >
                   {cargos.map((cargo) => (
                     <SelectItem key={cargo.id} value={cargo.nome}>
@@ -385,6 +387,7 @@ export function InputForm({ className, session, ...props }: InputFormProps) {
                 <SelectContent 
                   side="bottom"
                   className="max-w-[500px]"
+                  avoidCollisions={false}
                 >
                   <SelectItem value="8">8</SelectItem>
                   <SelectItem value="17">17</SelectItem>
