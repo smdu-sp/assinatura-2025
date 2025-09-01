@@ -168,22 +168,24 @@
 
   /* Fix para Select Content não estourar container */
   [data-radix-select-content] {
-    max-width: var(--radix-select-trigger-width) !important;
-    width: var(--radix-select-trigger-width) !important;
-    overflow: hidden !important;
+    min-width: var(--radix-select-trigger-width) !important;
+    max-width: 500px !important;
   }
 
   [data-radix-select-viewport] {
     max-width: 100% !important;
-    overflow-x: hidden !important;
   }
 
   [data-radix-select-item] {
     max-width: 100% !important;
-    overflow: hidden !important;
   }
 
   [data-radix-select-item-text] {
+    max-width: 100% !important;
+  }
+
+  /* Garantir que o trigger seja truncado */
+  [data-radix-select-trigger] [data-radix-select-value] {
     overflow: hidden !important;
     text-overflow: ellipsis !important;
     white-space: nowrap !important;

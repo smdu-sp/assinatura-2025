@@ -338,12 +338,11 @@ export function InputForm({ className, session, ...props }: InputFormProps) {
                 </SelectTrigger>
                 <SelectContent 
                   side="bottom" 
-                  className="max-w-[var(--radix-select-trigger-width)]"
-                  style={{ maxWidth: 'var(--radix-select-trigger-width)' }}
+                  className="max-w-[500px]"
                 >
                   {setores.map((setor) => (
                     <SelectItem key={setor.id} value={setor.id}>
-                      <span className="truncate block">{setor.nome}</span>
+                      {setor.nome}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -362,12 +361,11 @@ export function InputForm({ className, session, ...props }: InputFormProps) {
                 </SelectTrigger>
                 <SelectContent 
                   side="bottom"
-                  className="max-w-[var(--radix-select-trigger-width)]"
-                  style={{ maxWidth: 'var(--radix-select-trigger-width)' }}
+                  className="max-w-[500px]"
                 >
                   {cargos.map((cargo) => (
                     <SelectItem key={cargo.id} value={cargo.nome}>
-                      <span className="truncate block">{cargo.nome}</span>
+                      {cargo.nome}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -386,8 +384,7 @@ export function InputForm({ className, session, ...props }: InputFormProps) {
                 </SelectTrigger>
                 <SelectContent 
                   side="bottom"
-                  className="max-w-[var(--radix-select-trigger-width)]"
-                  style={{ maxWidth: 'var(--radix-select-trigger-width)' }}
+                  className="max-w-[500px]"
                 >
                   <SelectItem value="8">8</SelectItem>
                   <SelectItem value="17">17</SelectItem>
