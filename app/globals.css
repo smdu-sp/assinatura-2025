@@ -185,9 +185,37 @@
   }
 
   /* Garantir que o trigger seja truncado */
+  [data-radix-select-trigger] {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+  }
+
   [data-radix-select-trigger] [data-radix-select-value] {
     overflow: hidden !important;
     text-overflow: ellipsis !important;
     white-space: nowrap !important;
+    display: block !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  /* Garantir que o trigger não quebre linha */
+  [data-radix-select-trigger] * {
+    white-space: nowrap !important;
+  }
+
+  /* Forçar quebra de linha apenas no dropdown, nunca no trigger */
+  [data-radix-select-trigger] {
+    flex-wrap: nowrap !important;
+    word-wrap: normal !important;
+    word-break: keep-all !important;
+  }
+
+  /* Garantir que o texto do trigger seja sempre truncado */
+  [data-radix-select-trigger] span,
+  [data-radix-select-trigger] div {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
   }
 }
