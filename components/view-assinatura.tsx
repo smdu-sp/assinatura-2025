@@ -105,6 +105,8 @@ export const ViewAssinatura = forwardRef<HTMLDivElement, AssinaturaProps>(
                     paddingRight: "15px",
                     verticalAlign: "middle",
                     width: "200px",
+                    border: "none",
+                    borderColor: "transparent",
                     borderRight: "2px solid #cccccc",
                   }}
                 >
