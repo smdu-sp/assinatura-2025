@@ -70,12 +70,13 @@ export const ViewAssinatura = forwardRef<HTMLDivElement, AssinaturaProps>(
       textDecoration: "underline",
     };
 
-    const copyModeSeparatorColumnStyle: React.CSSProperties = {
-      width: "3px",
-      backgroundColor: "#cccccc",
-      padding: "0",
-      verticalAlign: "middle",
-    };
+    // const copyModeSeparatorColumnStyle: React.CSSProperties = {
+    //   width: "3px",
+    //   backgroundColor: "#cccccc",
+    //   padding: "0",
+    //   verticalAlign: "middle",
+    // };
+    
     const copyModeSeparatorDivStyle: React.CSSProperties = {
       width: "3px",
       height: "100%",
