@@ -117,7 +117,7 @@ export const ViewAssinatura = forwardRef<HTMLDivElement, AssinaturaProps>(
                     cellPadding="0"
                     cellSpacing="0"
                     border={0}
-                    style={{ width: "100%" }}
+                    style={{ width: "100%", border: "none", borderColor: "transparent" }}
                   >
                     <tbody>
                       <tr>
@@ -188,7 +188,7 @@ export const ViewAssinatura = forwardRef<HTMLDivElement, AssinaturaProps>(
       <div
         id="assinatura"
         ref={ref}
-        className="flex items-center border p-4 rounded-md bg-white"
+        className="flex items-center p-4 bg-white"
       >
         <Image
           src="/img_assinatura.png"
