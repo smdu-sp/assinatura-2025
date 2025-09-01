@@ -333,13 +333,17 @@ export function InputForm({ className, session, ...props }: InputFormProps) {
                 value={unidade}
                 onValueChange={(value) => setUnidade(value)}
               >
-                <SelectTrigger className="w-full bg-background">
+                <SelectTrigger className="w-full bg-background min-w-0">
                   <SelectValue placeholder="Selecione a unidade" />
                 </SelectTrigger>
-                <SelectContent side="bottom">
+                <SelectContent 
+                  side="bottom" 
+                  className="max-w-[var(--radix-select-trigger-width)]"
+                  style={{ maxWidth: 'var(--radix-select-trigger-width)' }}
+                >
                   {setores.map((setor) => (
                     <SelectItem key={setor.id} value={setor.id}>
-                      {setor.nome}
+                      <span className="truncate block">{setor.nome}</span>
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -353,13 +357,17 @@ export function InputForm({ className, session, ...props }: InputFormProps) {
                 value={cargo}
                 onValueChange={(value) => setCargo(value)}
               >
-                <SelectTrigger className="w-full bg-background">
+                <SelectTrigger className="w-full bg-background min-w-0">
                   <SelectValue placeholder="Selecione o cargo" />
                 </SelectTrigger>
-                <SelectContent side="bottom">
+                <SelectContent 
+                  side="bottom"
+                  className="max-w-[var(--radix-select-trigger-width)]"
+                  style={{ maxWidth: 'var(--radix-select-trigger-width)' }}
+                >
                   {cargos.map((cargo) => (
                     <SelectItem key={cargo.id} value={cargo.nome}>
-                      {cargo.nome}
+                      <span className="truncate block">{cargo.nome}</span>
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -373,10 +381,14 @@ export function InputForm({ className, session, ...props }: InputFormProps) {
                 value={andar}
                 onValueChange={(value) => setAndar(value)}
               >
-                <SelectTrigger size="default" className="w-full bg-background">
+                <SelectTrigger size="default" className="w-full bg-background min-w-0">
                   <SelectValue placeholder="Selecione o andar" />
                 </SelectTrigger>
-                <SelectContent  side="bottom">
+                <SelectContent 
+                  side="bottom"
+                  className="max-w-[var(--radix-select-trigger-width)]"
+                  style={{ maxWidth: 'var(--radix-select-trigger-width)' }}
+                >
                   <SelectItem value="8">8</SelectItem>
                   <SelectItem value="17">17</SelectItem>
                   <SelectItem value="18">18</SelectItem>

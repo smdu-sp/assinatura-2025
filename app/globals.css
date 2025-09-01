@@ -166,4 +166,26 @@
     scroll-behavior: smooth;
   }
 
+  /* Fix para Select Content não estourar container */
+  [data-radix-select-content] {
+    max-width: var(--radix-select-trigger-width) !important;
+    width: var(--radix-select-trigger-width) !important;
+    overflow: hidden !important;
+  }
+
+  [data-radix-select-viewport] {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+
+  [data-radix-select-item] {
+    max-width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  [data-radix-select-item-text] {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
 }
