@@ -76,14 +76,13 @@ export const ViewAssinatura = forwardRef<HTMLDivElement, AssinaturaProps>(
     //   padding: "0",
     //   verticalAlign: "middle",
     // };
-    
-    const copyModeSeparatorDivStyle: React.CSSProperties = {
-      width: "3px",
-      height: "100%",
-      backgroundColor: "#cccccc",
-      lineHeight: "0",
-      fontSize: "0",
-    };
+    // const copyModeSeparatorDivStyle: React.CSSProperties = {
+    //   width: "3px",
+    //   height: "100%",
+    //   backgroundColor: "#cccccc",
+    //   lineHeight: "0",
+    //   fontSize: "0",
+    // };
 
     if (mode === "copy") {
       return (
