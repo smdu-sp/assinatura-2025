@@ -105,13 +105,14 @@ export const ViewAssinatura = forwardRef<HTMLDivElement, AssinaturaProps>(
                     paddingRight: "15px",
                     verticalAlign: "middle",
                     width: "200px",
+                    borderRight: "2px solid #cccccc",
                   }}
                 >
                   <Logo />
                 </td>
-                <td style={copyModeSeparatorColumnStyle}>
+                {/* <td style={copyModeSeparatorColumnStyle}>
                   <div style={copyModeSeparatorDivStyle}>&nbsp;</div>
-                </td>
+                </td> */}
                 <td style={{ paddingLeft: "15px", verticalAlign: "middle" }}>
                   <table
                     cellPadding="0"
