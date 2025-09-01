@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
-import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import {
@@ -22,14 +21,14 @@ import * as htmlToImage from "html-to-image";
 import { Copy, Download } from "lucide-react";
 import { DatePicker } from "@/components/date-picker";
 import React from "react";
+import { Cargo, Permissao, Setor } from "@prisma/client";
 
 type CustomUser = {
   id: string;
   email: string;
   nome: string;
   login: string;
-  // eslint-disable-next-line
-  permissao: any;
+  permissao: Permissao;
   cargo?: string;
   unidade?: string;
   andar?: string;
@@ -50,15 +49,13 @@ interface InputFormProps extends React.ComponentPropsWithoutRef<"div"> {
 const PhoneMask = (value: any) => {
   if (!value) return "";
   value = value.replace(/\D/g, "");
+  if (value.length > 10) value = value.substring(0, 10);
   value = value.replace(/(\d{2})(\d)/, "($1) $2");
   value = value.replace(/(\d)(\d{4})$/, "$1-$2");
   return value;
 };
 
 export function InputForm({ className, session, ...props }: InputFormProps) {
-  // eslint-disable-next-line
-  const router = useRouter();
-
   const getShortName = (fullName: string | undefined) => {
     if (!fullName) return "";
     if (fullName.length >= 30) {
@@ -68,7 +65,8 @@ export function InputForm({ className, session, ...props }: InputFormProps) {
     return fullName;
   };
 
-  const [setores, setSetores] = useState<{ id: string; nome: string }[]>([]);
+  const [setores, setSetores] = useState<Setor[]>([]);
+  const [cargos, setCargos] = useState<Cargo[]>([]);
   const [nome, setNome] = useState(getShortName(session?.user?.nome) || "");
   const [cargo, setCargo] = useState(session?.user?.cargo || "");
   const [unidade, setUnidade] = useState(session?.user?.unidade || "");
@@ -95,6 +93,12 @@ export function InputForm({ className, session, ...props }: InputFormProps) {
         if (!setoresResponse.ok) throw new Error("Erro ao buscar setores");
         const setoresData = await setoresResponse.json();
         setSetores(setoresData);
+
+        // Busca cargos
+        const cargosResponse = await fetch("/api/cargos");
+        if (!cargosResponse.ok) throw new Error("Erro ao buscar cargos");
+        const cargosData = await cargosResponse.json();
+        setCargos(cargosData);
 
         // Busca dados completos do usuário, incluindo ramal de grupo
         const usuarioResponse = await fetch("/api/usuarios/proprio/get-user");
@@ -254,7 +258,7 @@ export function InputForm({ className, session, ...props }: InputFormProps) {
 
   return (
     <div
-      className={cn("flex flex-col gap-6 w-full mx-auto", className)}
+      className={cn("flex flex-col gap-6 w-full mx-auto h-full", className)}
       {...props}
     >
       <div className="-translate-y-14">
@@ -332,7 +336,7 @@ export function InputForm({ className, session, ...props }: InputFormProps) {
                 <SelectTrigger className="w-full bg-background">
                   <SelectValue placeholder="Selecione a unidade" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent side="bottom" avoidCollisions={false}>
                   {setores.map((setor) => (
                     <SelectItem key={setor.id} value={setor.id}>
                       {setor.nome}
@@ -343,15 +347,23 @@ export function InputForm({ className, session, ...props }: InputFormProps) {
             </div>
             <div className="grid col-span-6 md:col-span-2 gap-2">
               <Label htmlFor="cargo">Cargo *</Label>
-              <Input
-                className="bg-background"
-                id="cargo"
-                placeholder="Assessor"
-                type="text"
+              <Select
+                required
                 name="cargo"
                 value={cargo}
-                onChange={(e) => setCargo(e.target.value)}
-              />
+                onValueChange={(value) => setCargo(value)}
+              >
+                <SelectTrigger className="w-full bg-background">
+                  <SelectValue placeholder="Selecione o cargo" />
+                </SelectTrigger>
+                <SelectContent side="bottom" avoidCollisions={false}>
+                  {cargos.map((cargo) => (
+                    <SelectItem key={cargo.id} value={cargo.nome}>
+                      {cargo.nome}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             <div className="grid col-span-6 md:col-span-2 gap-2">
               <Label htmlFor="andar">Andar *</Label>
@@ -364,7 +376,7 @@ export function InputForm({ className, session, ...props }: InputFormProps) {
                 <SelectTrigger size="default" className="w-full bg-background">
                   <SelectValue placeholder="Selecione o andar" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent  side="bottom" avoidCollisions={false}>
                   <SelectItem value="8">8</SelectItem>
                   <SelectItem value="17">17</SelectItem>
                   <SelectItem value="18">18</SelectItem>

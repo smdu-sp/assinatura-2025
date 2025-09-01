@@ -46,6 +46,9 @@ model Setor {
 
   usuarios      Usuario[]
 
+  criadoEm      DateTime    @default(now())
+  atualizadoEm  DateTime    @default(now()) @updatedAt
+
   @@map("setores")
 }
 
@@ -54,5 +57,18 @@ model GrupoRamal {
   usuario       String      @unique
   ramalGrupo    String
 
+  criadoEm      DateTime    @default(now())
+  atualizadoEm  DateTime    @default(now()) @updatedAt
+
   @@map("gruporamais")
+}
+
+model Cargo {
+  id            String      @id @default(uuid())
+  nome          String      @unique
+
+  criadoEm      DateTime    @default(now())
+  atualizadoEm  DateTime    @default(now()) @updatedAt
+
+  @@map("cargos")
 }

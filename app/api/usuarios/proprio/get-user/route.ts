@@ -54,9 +54,7 @@ export async function GET() {
       ...usuario,
       ramal: ramalFinal,
     };
-
-    console.log("Ramal encontrado no backend:", ramalFinal);
-
+    
     return NextResponse.json(dadosCompletos, { status: 200 });
   } catch (error) {
     console.error("Erro ao buscar dados do usuário:", error);

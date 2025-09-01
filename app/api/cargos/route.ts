@@ -1,7 +1,7 @@
 // src/app/api/setores/route.ts
 import { NextResponse } from 'next/server';
-import { getSetores } from '@/services/setores';
 import { auth } from '@/auth';
+import { getCargos } from '@/services/cargos';
 
 export async function GET() {
   const session = await auth();
@@ -9,10 +9,10 @@ export async function GET() {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
   try {
-    const setores = await getSetores();
+    const setores = await getCargos();
     return NextResponse.json(setores);
   } catch (error) {
     console.error("Erro ao buscar setores:", error);
-    return NextResponse.json({ error: "Erro ao buscar setores" }, { status: 500 });
+    return NextResponse.json({ error: "Erro ao buscar cargos" }, { status: 500 });
   }
 }

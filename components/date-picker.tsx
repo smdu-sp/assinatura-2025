@@ -8,7 +8,7 @@ import { Calendar as CalendarIcon, ChevronLeft, ChevronRight } from "lucide-reac
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 
 interface DatePickerProps {
   value?: string;
@@ -68,8 +68,8 @@ export function DatePicker({ value, onChange, disabled }: DatePickerProps) {
     : "Selecione";
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
         <Button
           variant={"outline"}
           className={cn(
@@ -81,8 +81,10 @@ export function DatePicker({ value, onChange, disabled }: DatePickerProps) {
           <CalendarIcon className="mr-2 h-4 w-4" />
           {formattedDate}
         </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-auto p-3">
+      </DialogTrigger>
+      <DialogContent className="w-auto p-3 [&>button]:hidden">
+        <DialogTitle className="hidden">Selecione uma data</DialogTitle>
+        <DialogDescription className="hidden">Selecione uma data para a sua consulta</DialogDescription>
         <div className="flex justify-between items-center mb-2 bg-white">
           <Button
             variant="ghost"
@@ -110,7 +112,7 @@ export function DatePicker({ value, onChange, disabled }: DatePickerProps) {
         <div className="grid grid-cols-7 gap-1 mt-2">
           {generateDays()}
         </div>
-      </PopoverContent>
-    </Popover>
+      </DialogContent>
+    </Dialog>
   );
 }
