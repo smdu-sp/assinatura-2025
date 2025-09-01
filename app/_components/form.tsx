@@ -336,7 +336,7 @@ export function InputForm({ className, session, ...props }: InputFormProps) {
                 <SelectTrigger className="w-full bg-background">
                   <SelectValue placeholder="Selecione a unidade" />
                 </SelectTrigger>
-                <SelectContent side="bottom" avoidCollisions={false}>
+                <SelectContent side="bottom">
                   {setores.map((setor) => (
                     <SelectItem key={setor.id} value={setor.id}>
                       {setor.nome}
@@ -356,7 +356,7 @@ export function InputForm({ className, session, ...props }: InputFormProps) {
                 <SelectTrigger className="w-full bg-background">
                   <SelectValue placeholder="Selecione o cargo" />
                 </SelectTrigger>
-                <SelectContent side="bottom" avoidCollisions={false}>
+                <SelectContent side="bottom">
                   {cargos.map((cargo) => (
                     <SelectItem key={cargo.id} value={cargo.nome}>
                       {cargo.nome}
@@ -376,7 +376,7 @@ export function InputForm({ className, session, ...props }: InputFormProps) {
                 <SelectTrigger size="default" className="w-full bg-background">
                   <SelectValue placeholder="Selecione o andar" />
                 </SelectTrigger>
-                <SelectContent  side="bottom" avoidCollisions={false}>
+                <SelectContent  side="bottom">
                   <SelectItem value="8">8</SelectItem>
                   <SelectItem value="17">17</SelectItem>
                   <SelectItem value="18">18</SelectItem>
