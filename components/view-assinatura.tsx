@@ -30,6 +30,7 @@ export const ViewAssinatura = forwardRef<HTMLDivElement, AssinaturaProps>(
       endereco2,
       site,
       ramal,
+      unidade,
       mode = "display",
     },
     ref
@@ -64,25 +65,10 @@ export const ViewAssinatura = forwardRef<HTMLDivElement, AssinaturaProps>(
       fontSize: "18.5px",
     };
 
-    const copyModeUnderlineStyle: React.CSSProperties = {
+    const copyModeBoldStyle: React.CSSProperties = {
       ...copyModeCommonTextStyle,
       fontWeight: "bold",
-      textDecoration: "underline",
     };
-
-    // const copyModeSeparatorColumnStyle: React.CSSProperties = {
-    //   width: "3px",
-    //   backgroundColor: "#cccccc",
-    //   padding: "0",
-    //   verticalAlign: "middle",
-    // };
-    // const copyModeSeparatorDivStyle: React.CSSProperties = {
-    //   width: "3px",
-    //   height: "100%",
-    //   backgroundColor: "#cccccc",
-    //   lineHeight: "0",
-    //   fontSize: "0",
-    // };
 
     if (mode === "copy") {
       return (
@@ -112,9 +98,6 @@ export const ViewAssinatura = forwardRef<HTMLDivElement, AssinaturaProps>(
                 >
                   <Logo />
                 </td>
-                {/* <td style={copyModeSeparatorColumnStyle}>
-                  <div style={copyModeSeparatorDivStyle}>&nbsp;</div>
-                </td> */}
                 <td style={{ paddingLeft: "15px", verticalAlign: "middle" }}>
                   <table
                     cellPadding="0"
@@ -134,30 +117,27 @@ export const ViewAssinatura = forwardRef<HTMLDivElement, AssinaturaProps>(
                             {nome.toUpperCase()}
                           </p>
                           <p style={copyModeCommonTextStyle}>
-                            {cargo.toUpperCase()}
+                            {cargo.toUpperCase()} / {unidade.toUpperCase()}
                           </p>
                         </td>
                       </tr>
                       <tr>
-                        <td style={{ height: "10px" }}></td>
+                        <td style={{ height: "12px" }}></td>
                       </tr>
                       <tr>
                         <td>
-                          <p style={copyModeUnderlineStyle}>
+                          <p style={copyModeBoldStyle}>
                             {secretaria.toUpperCase()}
                           </p>
                         </td>
                       </tr>
                       <tr>
-                        <td style={{ height: "10px" }}></td>
-                      </tr>
-                      <tr>
                         <td>
-                          <p style={copyModeCommonTextStyle}>{email}</p>
+                          <a href={`mailto:${email}`} target="_blank" style={copyModeCommonTextStyle}>{email}</a>
                         </td>
                       </tr>
                       <tr>
-                        <td style={{ height: "10px" }}></td>
+                        <td style={{ height: "12px" }}></td>
                       </tr>
                       <tr>
                         <td>
@@ -169,11 +149,11 @@ export const ViewAssinatura = forwardRef<HTMLDivElement, AssinaturaProps>(
                         </td>
                       </tr>
                       <tr>
-                        <td style={{ height: "10px" }}></td>
+                        <td style={{ height: "12px" }}></td>
                       </tr>
                       <tr>
                         <td>
-                          <p style={copyModeCommonTextStyle}>{site}</p>
+                          <a href={site} target="_blank" style={copyModeCommonTextStyle}>{site.replace("https://", "")}</a>
                         </td>
                       </tr>
                     </tbody>
@@ -206,14 +186,12 @@ export const ViewAssinatura = forwardRef<HTMLDivElement, AssinaturaProps>(
             <p className="font-title-sans font-bold text-[18.5px]">
               {nome.toUpperCase()}
             </p>
-            <p className="font-sans text-[12px]">{cargo.toUpperCase()}</p>
+            <p className="font-sans text-[12px]">{cargo.toUpperCase()} / {unidade.toUpperCase()}</p>
           </div>
           <div>
-            <p className="font-sans underline font-bold text-[12px]">
+            <p className="font-sans font-bold text-[12px]">
               {secretaria.toUpperCase()}
             </p>
-          </div>
-          <div>
             <a href={`mailto:${email}`} target="_blank" className="font-sans text-[12px]">{email}</a>
           </div>
           <div>
@@ -224,7 +202,7 @@ export const ViewAssinatura = forwardRef<HTMLDivElement, AssinaturaProps>(
             <p className="font-sans text-[12px]">{endereco2}</p>
           </div>
           <div>
-            <a href={site} target="_blank" className="font-sans text-[12px]">{site}</a>
+            <a href={site} target="_blank" className="font-sans text-[12px]">{site.replace("https://", "")}</a>
           </div>
         </div>
       </div>

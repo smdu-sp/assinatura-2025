@@ -70,7 +70,7 @@ export function InputForm({ className, session, ...props }: InputFormProps) {
   const [nome, setNome] = useState(getShortName(session?.user?.nome) || "");
   const [cargo, setCargo] = useState(session?.user?.cargo || "");
   const [unidade, setUnidade] = useState(session?.user?.unidade || "");
-  const secretaria = "URBANISMO E LICENCIAMENTO";
+  const secretaria = "URBANISMO E LICENCIAMENTO - SMUL";
   const [email, setEmail] = useState(session?.user?.email || "");
   const [andar, setAndar] = useState(session?.user?.andar || "");
   const [nascimento, setNascimento] = React.useState<string>(
@@ -78,7 +78,7 @@ export function InputForm({ className, session, ...props }: InputFormProps) {
   );
   const endereco = `Rua São Bento, 405 | ${andar}º andar`;
   const endereco2 = "01011 100 | São Paulo | SP";
-  const site = "www.prefeitura.sp.gov.br";
+  const site = "https://www.prefeitura.sp.gov.br/licenciamento";
   const [ramal, setRamal] = useState(PhoneMask(session?.user?.ramal) || "");
   const displaySignatureRef = useRef<HTMLDivElement>(null);
   const copySignatureRef = useRef<HTMLDivElement>(null);
