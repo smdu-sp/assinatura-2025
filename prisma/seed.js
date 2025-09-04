@@ -764,45 +764,231 @@ async function main() {
 
   await prisma.cargo.createMany({
     data: [
-      { nome: "Assistente Administrativo de Gestão" },
-      { nome: "Assistente Técnico de Gestão" },
-      { nome: "Assistente de Suporte Operacional" },
-      { nome: "Professor de Educação Infantil" },
-      { nome: "Professor de Educação Infantil e Ensino Fundamental I" },
-      { nome: "Professor de Ensino Fundamental II e Médio" },
-      { nome: "Coordenador Pedagógico" },
-      { nome: "Diretor de Escola" },
-      { nome: "Supervisor Escolar" },
-      { nome: "Agente de Apoio" },
-      { nome: "Agente Escolar" },
-      { nome: "Auxiliar Técnico de Educação" },
-      { nome: "Analista de Saúde (diversas especialidades)" },
-      { nome: "Assistente de Saúde (diversas áreas)" },
-      { nome: "Agente de Saúde" },
-      { nome: "Auxiliar Técnico em Saúde" },
-      { nome: "Analista de Planejamento e Desenvolvimento Organizacional" },
-      { nome: "Analista de Informações, Cultura e Desporto" },
-      { nome: "Analista de Assistência e Desenvolvimento Social" },
-      { nome: "Analista de Ordenamento Territorial" },
-      { nome: "Profissional de Engenharia, Arquitetura, Agronomia e Geologia" },
-      { nome: "Analista de Políticas Públicas e Gestão Governamental" },
-      { nome: "Auditor Municipal de Controle Interno" },
-      { nome: "Agente Vistor" },
-      { nome: "Secretário Municipal" },
-      { nome: "Secretário Executivo" },
-      { nome: "Subprefeito" },
-      { nome: "Secretário Adjunto" },
-      { nome: "Chefe de Gabinete" },
-      { nome: "Coordenador" },
-      { nome: "Chefe de Assessoria" },
-      { nome: "Diretor" },
-      { nome: "Assessor VI" },
-      { nome: "Assessor V" },
-      { nome: "Assessor IV" },
-      { nome: "Assessor III" },
-      { nome: "Assessor II" },
-      { nome: "Assessor I" },
-      { nome: "Estagiário" },
+      {
+        "nome": "ADMINISTRAÇÃO"
+      },
+      {
+        "nome": "ADMINISTRAÇÃO PÚBLICA"
+      },
+      {
+        "nome": "ADVOGADA"
+      },
+      {
+        "nome": "ADVOGADO"
+      },
+      {
+        "nome": "ANALISTA DE SISTEMA"
+      },
+      {
+        "nome": "ANALISTA DE SUPORTE TÉCNICO"
+      },
+      {
+        "nome": "ARQUITETA"
+      },
+      {
+        "nome": "ARQUITETO"
+      },
+      {
+        "nome": "CONTADOR"
+      },
+      {
+        "nome": "CONTADORA"
+      },
+      {
+        "nome": "DESIGNER GRÁFICO"
+      },
+      {
+        "nome": "DESIGNER GRÁFICA"
+      },
+      {
+        "nome": "ENGENHEIRA AMBIENTAL"
+      },
+      {
+        "nome": "ENGENHEIRA CIVIL"
+      },
+      {
+        "nome": "ENGENHEIRA DE PRODUÇÃO"
+      },
+      {
+        "nome": "ENGENHEIRA DE SEGURANÇA TRABALHO"
+      },
+      {
+        "nome": "ENGENHEIRA ELETRICISTA"
+      },
+      {
+        "nome": "ENGENHEIRA FLORESTAL"
+      },
+      {
+        "nome": "ENGENHEIRA OPERACIONAL"
+      },
+      {
+        "nome": "ENGENHEIRA QUÍMICA"
+      },
+      {
+        "nome": "ENGENHEIRO AMBIENTAL"
+      },
+      {
+        "nome": "ENGENHEIRO CIVIL"
+      },
+      {
+        "nome": "ENGENHEIRO DE PRODUÇÃO"
+      },
+      {
+        "nome": "ENGENHEIRO DE SEGURANÇA TRABALHO"
+      },
+      {
+        "nome": "ENGENHEIRO ELETRICISTA"
+      },
+      {
+        "nome": "ENGENHEIRO FLORESTAL"
+      },
+      {
+        "nome": "ENGENHEIRO OPERACIONAL"
+      },
+      {
+        "nome": "ENGENHEIRO QUÍMICO"
+      },
+      {
+        "nome": "ESTATÍSTICA"
+      },
+      {
+        "nome": "ESTATÍSTICO"
+      },
+      {
+        "nome": "FULL STACK DEVELOPER"
+      },
+      {
+        "nome": "GEÓGRAFA"
+      },
+      {
+        "nome": "GEÓGRAFO"
+      },
+      {
+        "nome": "GEÓLOGA"
+      },
+      {
+        "nome": "GEÓLOGO"
+      },
+      {
+        "nome": "GESTOR DE POLÍTICAS PÚBLICAS"
+      },
+      {
+        "nome": "GESTORA DE POLÍTICAS PÚBLICAS"
+      },
+      {
+        "nome": "JORNALISTA"
+      },
+      {
+        "nome": "PLANEJADOR TERRITORIAL"
+      },
+      {
+        "nome": "PLANEJADORA TERRITORIAL"
+      },
+      {
+        "nome": "PROCURADOR"
+      },
+      {
+        "nome": "PROCURADORA"
+      },
+      {
+        "nome": "PUBLICITÁRIA"
+      },
+      {
+        "nome": "PUBLICITÁRIO"
+      },
+      {
+        "nome": "TÉCNICO DE SUPORTE"
+      },
+      {
+        "nome": "DESENVOLVEDOR DE SOFTWARE"
+      },
+      {
+        "nome": "AAG"
+      },
+      {
+        "nome": "ASO"
+      },
+      {
+        "nome": "APPGG"
+      },
+      {
+        "nome": "ANALISTA"
+      },
+      {
+        "nome": "ANALISTA DE ORDENAMENTO TERRITORIAL"
+      },
+      {
+        "nome": "ANALISTA DE MEIO AMBIENTE"
+      },
+      {
+        "nome": "ANALISTA PLANEJAMENTO DESENV ORGANIZACIONAL"
+      },
+      {
+        "nome": "ASSISTENTE TECNICO DE GESTAO"
+      },
+      {
+        "nome": "PROCURADOR (A)"
+      },
+      {
+        "nome": "PROFISSIONAL ENG, ARQ, AGRONOMIA,GEOLOGIA"
+      },
+      {
+        "nome": "ASSESSOR I"
+      },
+      {
+        "nome": "ASSESSOR II"
+      },
+      {
+        "nome": "ASSESSOR III"
+      },
+      {
+        "nome": "ASSESSOR IV"
+      },
+      {
+        "nome": "ASSESSOR V"
+      },
+      {
+        "nome": "ASSESSOR VI"
+      },
+      {
+        "nome": "DIRETOR I"
+      },
+      {
+        "nome": "DIRETOR II"
+      },
+      {
+        "nome": "COORDENADOR II"
+      },
+      {
+        "nome": "CHEFE DE ASSESSORIA II"
+      },
+      {
+        "nome": "CHEFE DE ASSESSORIA JURÍDICA II"
+      },
+      {
+        "nome": "CHEFE DE GABINETE"
+      },
+      {
+        "nome": "ASSESSOR JURÍDICO IV"
+      },
+      {
+        "nome": "SECRETARIO ADJUNTO"
+      },
+      {
+        "nome": "SECRETARIO EXECUTIVO ADJUNTO"
+      },
+      {
+        "nome": "SECRETARIO MUNICIPAL"
+      },
+      {
+        "nome": "COORDENADOR I"
+      },
+      {
+        "nome": "CHEFE DE ASSESSORIA I"
+      },
+      {
+        "nome": "CHEFE DE ASSESSORIA JURÍDICA I"
+      }
     ],
     skipDuplicates: true,
   });
