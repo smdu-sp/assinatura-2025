@@ -60,6 +60,7 @@ async function buscarPorLogin(
 	if (!login || login === '') return null;
 	let resposta = null;
 	let serverNum = 0;
+	const errors: any[] = [];
 	do {
 		try {
 			const ldap = createLdapServer(ldapServers[serverNum]);
@@ -74,17 +75,20 @@ async function buscarPorLogin(
 			const { name, mail, telephoneNumber } = usuario.searchEntries[0];
 			const nome = name.toString();
 			const email = mail.toString().toLowerCase();
-			const telefone = telephoneNumber.toString().replace('55', '').replace(/\D/g, '');
+			const telefone = telephoneNumber ? telephoneNumber.toString().replace('55', '').replace(/\D/g, '') : undefined;
 			resposta = { nome, email, login, telefone };
 			ldap.unbind();
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		} catch (err) {
 			resposta = null;
+			errors.push({
+				server: ldapServers[serverNum],
+				error: err,
+			});
 		}
 		serverNum++;
 		if (resposta) break;
 	} while (serverNum < ldapServers.length);
-	console.log(serverNum, 'busca por login');
 	return resposta;
 }
 
@@ -122,7 +126,6 @@ async function buscarPorNome(
 		serverNum++;
 		if (resposta) break;
 	} while (serverNum < ldapServers.length);
-	console.log(serverNum, 'busca por nome');
 	return resposta;
 }
 
