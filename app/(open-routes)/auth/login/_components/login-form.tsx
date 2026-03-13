@@ -29,7 +29,7 @@ export function LoginForm({
 				senha: senha as string,
 				redirect: false,
 			});
-			if (res.error) toast.error('Credenciais incorretas!');
+			if (res?.error) toast.error(res.code ?? 'Credenciais incorretas!');
 			else {
 				toast.success('Seja bem-vindo!');
 				router.push('/');

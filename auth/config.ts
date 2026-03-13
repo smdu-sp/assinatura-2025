@@ -1,5 +1,6 @@
 /** @format */
 
+import { CredentialsSignin } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 
 export const authConfig = {
@@ -11,24 +12,27 @@ export const authConfig = {
 				senha: {},
 			},
 			authorize: async (credentials) => {
-				const date = new Date();
 				const { login, senha } = credentials;
 				if (!login || !senha) return null;
 				const resposta = await fetch(
-					`${process.env.BASE_URL || 'http://localhost:3000'}/api/ldap/bind`,
+					`${process.env.BASE_URL || 'http://localhost:3000'}/api/autenticar`,
 					{
 						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
 						body: JSON.stringify({
 							login: login as string,
 							senha: senha as string,
 						}),
 					},
 				);
-				if (resposta.status !== 200) return null;
-				const { usuario } = await resposta.json();
+				if (resposta.status !== 200) {
+					const data = await resposta.json();
+					const erro = new CredentialsSignin();
+					erro.code = data.erro ?? 'Credenciais inválidas.';
+					throw erro;
+				}
+				const usuario = await resposta.json();
 				if (!usuario) return null;
-				if (date < new Date('2025-06-02') && usuario.permissao !== 'DEV')
-					return null;
 				return {
 					id: usuario.id,
 					email: usuario.email,
