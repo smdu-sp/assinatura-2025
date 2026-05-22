@@ -26,6 +26,10 @@ export async function POST(req: NextRequest) {
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify({ login, senha }),
 	});
-	if (!resposta.ok) return NextResponse.json({ erro: 'Credenciais inválidas.' }, { status: 401 });
+	if (!resposta.ok) {
+		const erroLdap = await resposta.text();
+		console.log('[autenticar] LDAP status:', resposta.status, 'body:', erroLdap);
+		return NextResponse.json({ erro: 'Credenciais inválidas.' }, { status: 401 });
+	}
 	return NextResponse.json(usuario);
 }

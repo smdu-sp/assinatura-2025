@@ -50,6 +50,9 @@
     "vaul": "^1.1.2",
     "zod": "^3.24.4"
   },
+  "overrides": {
+    "postcss": "^8.5.10"
+  },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
